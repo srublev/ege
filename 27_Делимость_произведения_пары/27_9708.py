@@ -39,6 +39,9 @@
 """
 from unittest import TestCase
 
+#
+# Алгоритм А. Поппарное сравнение всех чисел массива
+#
 
 def func_27_9708(sequence):
     """
@@ -73,12 +76,64 @@ def load_console_input():
 
     return sequence
 
-    pass
 
-if __name__ == '__main__':
+def algorythm_A():
+    """
+    Вызов алгорима А
+    """
     console_input = load_console_input()
     result = func_27_9708(console_input)
     print("Результат: {}".format(result))
+
+# Алгоритм B
+# Произведение двух чисел делится на 14, если:
+# — один из сомножителей делится на 14 (второй может быть любым) либо
+# — ни один из сомножителей не делится на 14, но один из сомножителей делится на 7, а другой – на 2.
+#
+# Поэтому программа, вычисляющая число X, может работать так.
+# Программа читает все входные данные один раз, не запоминая все данные в массиве. Программа для прочитанного фрагмента входной последовательности хранит значения четырёх величин:
+# М7 – самое большое число, кратное 7, но не кратное 2;
+# M2 – самое большое число, кратное 2, но не кратное 7;
+# M14 – самое большое число, кратное 14;
+# МAX – самое большое число среди всех элементов последовательности, отличное от М14 (если число М14 встретилось более одного раза и оно же является максимальным, то MAX = M14).
+# После того как все данные прочитаны, искомое число X вычисляется как максимум из произведений М14*MAX и М7*М2.
+
+def algorythm_B():
+    print("Введите количество элементов: ", end='')
+    number_of_elements = input()
+
+    max_2 = 0   # Максимальное число, дялящееся на 2 но не делящееся на 7
+    max_7 = 0   # Максимальное число, дялящееся на 7 но не делящееся на 2
+    max_14 = 0  # Максимальное число, дялящееся на 14
+    maxval = 0  # Максимальное число, отличное от max_14
+    result = 0
+
+    for i in range(int(number_of_elements)):
+        print("Введите элемент ({}/{}): ".format(i + 1, number_of_elements), end='')
+        element = int(input())
+        if element % 14 == 0 and element > max_14:
+            # проверка, что прошлый max_14 мог быт maxval
+            if max_14 > maxval:
+                maxval = max_14
+            max_14 = element
+        else:
+            if element % 7 == 0 and element % 2 != 0 and element > max_7:
+                max_7 = element
+            elif element % 2 == 0 and element % 7 != 0 and element > max_2:
+                max_2 = element
+
+            # Обновить максимум
+            if element > maxval:
+                maxval = element
+
+    result = maxval*max_14 if maxval*max_14 > max_7*max_2 else max_7*max_2
+
+    print("Результат: {}".format(result))
+
+if __name__ == '__main__':
+    #algorythm_A()
+    algorythm_B()
+
 
 # Unittests
 from unittest import TestCase
