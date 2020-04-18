@@ -52,7 +52,7 @@ def func_27_9708(sequence):
     """
     max_value = 0
     for i in range(len(sequence) - 1):
-        for k in range(i + 1, len(sequence) - 1):
+        for k in range(i + 1, len(sequence)):
             current = sequence[i] * sequence[k]
             if (current % 14 == 0) and (current > max_value):
                 max_value = current
