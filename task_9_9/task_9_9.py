@@ -1,6 +1,8 @@
 #coding: utf-8
 
 """
+Матчасть: https://www.resolventa.ru/spr/algebra/ferrary.htm
+
 Решаем уравнение
 x^4 + ax^3 + bx^2 + cx + d = 0
 
