@@ -1,19 +1,71 @@
 # coding: utf-8
 
+def get_number_by_value(value):
+
+    if value == 'M':
+        return 1000
+    elif value == 'D':
+        return 500
+    elif value == 'C':
+        return 100
+    elif value == 'L':
+        return 50
+    elif value == 'X':
+        return 10
+    elif value == 'V':
+        return 5
+    elif value == 'I':
+        return 1
+    else:
+        return None
+
 def int_to_roman(input):
     """ Convert an integer to a Roman numeral. """
 
     if not isinstance(input, type(1)):
         raise TypeError
-    # if not 0 < input < 4000:
-    #     raise ValueError
-    ints = (1000, 900,  500, 400, 100,  90, 50,  40, 10,  9,   5,  4,   1)
-    nums = ('M',  'CM', 'D', 'CD','C', 'XC','L','XL','X','IX','V','IV','I')
+
     result = []
-    for i in range(len(ints)):
-        count = int(input / ints[i])
-        result.append(nums[i] * count)
-        input -= ints[i] * count
+
+    count = int(input/1000)
+    result.append('M'*count)
+    input -= 1000 * count
+    count = int(input/900)
+    result.append('CM'*count)
+    input -= 900 * count
+    count = int(input/500)
+    result.append('D'*count)
+    input -= 900 * count
+    count = int(input/400)
+    result.append('CD'*count)
+    input -= 400 * count
+    count = int(input/100)
+    result.append('C'*count)
+    input -= 100 * count
+    count = int(input/90)
+    result.append('XC'*count)
+    input -= 90 * count
+    count = int(input/50)
+    result.append('L'*count)
+    input -= 50 * count
+    count = int(input/40)
+    result.append('XL'*count)
+    input -= 40 * count
+    count = int(input/10)
+    result.append('X'*count)
+    input -= 10 * count
+    count = int(input/9)
+    result.append('IX'*count)
+    input -= 9 * count
+    count = int(input/5)
+    result.append('V'*count)
+    input -= 5 * count
+    count = int(input/4)
+    result.append('IV'*count)
+    input -= 4 * count
+    count = int(input/1)
+    result.append('I'*count)
+    input -= 1* count
     return ''.join(result)
 
 
@@ -23,13 +75,13 @@ def roman_to_int(input):
     if not isinstance(input, type("")):
         raise TypeError
     input = input.upper(  )
-    nums = {'M':1000, 'D':500, 'C':100, 'L':50, 'X':10, 'V':5, 'I':1}
+   
     sum = 0
     for i in range(len(input)):
         try:
-            value = nums[input[i]]
+            value = get_number_by_value(input[i])
             # If the next place holds a larger number, this value is negative
-            if i+1 < len(input) and nums[input[i+1]] > value:
+            if i+1 < len(input) and get_number_by_value(input[i+1]) > value:
                 sum -= value
             else: sum += value
         except KeyError:
